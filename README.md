@@ -28,32 +28,57 @@ This library depends on the following other Arduino libraries:
 #include "LoRaTransceiver.h"
 
 // Create a new LoRaTransceiver object
+
 // SS pin, RST pin, DIO0 pin
+
 LoRaTransceiver lora(10, 9, 2);
 
+
 void setup() {
+
   Serial.begin(9600);
+  
   while (!Serial);
+  
   // Initialize the LoRa module with a frequency of 915 MHz
+  
   lora.begin(915E6);
+  
 }
 
+
 void loop() {
+
   // Send a message
+  
   lora.send("Hello, world!");
+  
   // Wait for an acknowledgement
+  
   if (lora.checkForAck()) {
+  
     Serial.println("Message acknowledged");
+    
   } else {
+  
     Serial.println("Message not acknowledged");
+    
   }
+  
   // Check for incoming messages
+  
   String message = lora.receive();
+  
   if (message != "") {
+  
     Serial.println("Received message: " + message);
+    
   }
+  
   delay(1000);
+  
 }
+
 
 ## Error Handling
 The LoRaTransceiver library includes built-in error detection and handling. Each message is sent with a checksum, and if the checksum does not match on the receiving end, a NACK message is sent back. If a NACK message is received, the message is automatically retransmitted up to the maximum NACK count. If the maximum NACK count is reached without receiving an acknowledgement, the library gives up on the message and returns false from the checkForAck() function.
