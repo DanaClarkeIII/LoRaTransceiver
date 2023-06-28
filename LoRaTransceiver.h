@@ -24,6 +24,8 @@ class LoRaTransceiver {
     int _nackCount;
     void sendPacket(String message);
     String receivePacket();
+    String _lastControlMessage;
+    String _bufferedMessage;
 };
 
 #endif
