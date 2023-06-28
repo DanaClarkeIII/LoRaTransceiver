@@ -31,7 +31,7 @@ Here's a simple example of how to use the LoRaTransceiver library:
 #include "LoRaTransceiver.h"
 
 // Create a new LoRaTransceiver object
-// SS pin = 10, RST pin = 9, DIO0 pin = 2
+// SS pin = 10, RST pin = 9, DIO0 pin = 2, (OPTIONALLY) NACK Retry Limit (Default = 3), (OPTIONALLY) ACK Timeout in milliseconds (Default = 2000)
 LoRaTransceiver lora(10, 9, 2);
 
 void setup() {
