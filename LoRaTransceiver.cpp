@@ -12,6 +12,8 @@ LoRaTransceiver::LoRaTransceiver(int ss, int rst, int dio0, int maxNackCount, in
   _lastSendTime = 0;
   _sendAttempts = 0;
   _nackCount = 0;
+  _lastControlMessage = "";
+  _bufferedMessage = "";
 }
 
 void LoRaTransceiver::begin(long frequency) {
@@ -43,11 +45,25 @@ void LoRaTransceiver::send(String message) {
 }
 
 String LoRaTransceiver::receive() {
-  return receivePacket();
+  if (_bufferedMessage != "") {
+    String message = _bufferedMessage;
+    _bufferedMessage = "";
+    return message;
+  }
+  String received = receivePacket();
+  if ((received == "ACK" || received == "NACK") && !_waitingForAck) {
+    _lastControlMessage = received;
+    return "";
+  }
+  return received;
 }
 
 bool LoRaTransceiver::checkForAck() {
-  String received = receivePacket();
+  String received = _lastControlMessage;
+  _lastControlMessage = "";
+  if (received == "") {
+    received = receivePacket();
+  }
   if (received == "ACK") {
     _waitingForAck = false;
     _nackCount = 0;
@@ -63,6 +79,8 @@ bool LoRaTransceiver::checkForAck() {
       Serial.println("Too many consecutive NACKs, giving up on message");
     }
     return false;
+  } else if (received != "") {
+    _bufferedMessage = received;
   }
   return false;
 }
