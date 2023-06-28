@@ -25,59 +25,43 @@ This library depends on the following other Arduino libraries:
 
 ## Usage
 
+Here's a simple example of how to use the LoRaTransceiver library:
+
+```cpp
 #include "LoRaTransceiver.h"
 
 // Create a new LoRaTransceiver object
-
-// SS pin, RST pin, DIO0 pin
-
+// SS pin = 10, RST pin = 9, DIO0 pin = 2
 LoRaTransceiver lora(10, 9, 2);
 
-
 void setup() {
-
   Serial.begin(9600);
-  
   while (!Serial);
-  
-  // Initialize the LoRa module with a frequency of 915 MHz
-  
-  lora.begin(915E6);
-  
-}
 
+  // Initialize the LoRa module with a frequency of 915 MHz
+  lora.begin(915E6);
+}
 
 void loop() {
-
   // Send a message
-  
   lora.send("Hello, world!");
-  
+
   // Wait for an acknowledgement
-  
   if (lora.checkForAck()) {
-  
     Serial.println("Message acknowledged");
-    
   } else {
-  
     Serial.println("Message not acknowledged");
-    
   }
-  
+
   // Check for incoming messages
-  
   String message = lora.receive();
-  
   if (message != "") {
-  
     Serial.println("Received message: " + message);
-    
   }
-  
+
   delay(1000);
-  
 }
+```
 
 
 ## Error Handling
