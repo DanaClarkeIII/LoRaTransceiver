@@ -50,7 +50,7 @@ void loop() {
 
 
 ## Error Handling
-The library includes some basic error handling capabilities. If a message isn't acknowledged after a predefined number of retransmissions (_maxNackCount), the library will stop trying to send the message. Errors during the initialization of the LoRa module result in an infinite loop.
+The LoRaTransceiver library includes built-in error detection and handling. Each message is sent with a checksum, and if the checksum does not match on the receiving end, a NACK message is sent back. If a NACK message is received, the message is automatically retransmitted up to the maximum NACK count. If the maximum NACK count is reached without receiving an acknowledgement, the library gives up on the message and returns false from the checkForAck() function.
 
 ## Limitations
 The current implementation doesn't support LoRaWAN, only raw LoRa communication. The library also doesn't provide any encryption for the messages, so it should not be used for transmitting sensitive information.
