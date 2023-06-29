@@ -29,7 +29,7 @@ LoRaTransceiver lora(10, 9, 2);
 
 void setup() {
   Serial.begin(9600);
-  lora.begin(433E6);
+  lora.begin(915E6);
 }
 
 void loop() {
