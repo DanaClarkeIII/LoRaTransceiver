@@ -1,7 +1,7 @@
 # LoRaTransceiver Arduino Library
 
 ## Overview
-The LoRaTransceiver library provides a simple and robust way to control LoRa devices on Arduino boards. It provides an interface for sending, receiving, and acknowledging LoRa messages, implementing basic error handling and retransmission functionality. 
+The LoRaTransceiver library provides an easy-to-use interface for sending and receiving messages over LoRa using the Arduino platform. It includes error detection and automatic retransmission of messages and allows the user to customize the maximum number of retransmission attempts and the timeout period.
 
 ## Dependencies
 This library depends on the [Arduino LoRa](https://github.com/sandeepmistry/arduino-LoRa) library. Please make sure to install it first.
