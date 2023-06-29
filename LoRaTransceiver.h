@@ -11,6 +11,7 @@ class LoRaTransceiver {
     void send(String message);
     String receive();
     bool checkForAck();
+    void processAckNack(String received);
   private:
     int _ss;
     int _rst;
@@ -18,6 +19,7 @@ class LoRaTransceiver {
     int _maxNackCount;
     int _timeout;
     String _lastSent;
+    String _newMessage;
     bool _waitingForAck;
     unsigned long _lastSendTime;
     int _sendAttempts;
