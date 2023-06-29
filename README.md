@@ -53,6 +53,8 @@ void loop() {
 The LoRaTransceiver library includes built-in error detection and handling. Each message is sent with a checksum, and if the checksum does not match on the receiving end, a NACK message is sent back. If a NACK message is received, the message is automatically retransmitted up to the maximum NACK count. If the maximum NACK count is reached without receiving an acknowledgement, the library gives up on the message and returns false from the checkForAck() function.
 
 ## Limitations
+The LoRaTransceiver library does not support addressing or sequencing of messages. Therefore, it is best suited for simple point-to-point communication where only one message is being sent at a time. For more complex communication scenarios, additional features may need to be implemented.
+
 The current implementation doesn't support LoRaWAN, only raw LoRa communication. The library also doesn't provide any encryption for the messages, so it should not be used for transmitting sensitive information.
 
 The library assumes that an "ACK" or "NACK" response is expected for every sent message, which might not suit every use case. If a "NACK" is received, the library automatically resends the message up to _maxNackCount times.
